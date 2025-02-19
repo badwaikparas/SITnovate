@@ -22,15 +22,13 @@ def file_upload_download():
         #// Read File Type
             case "text/plain":
                 text = read_txt(uploaded_file)
-                # summerize_text(text)
                 
                 
             case "application/pdf":
                 text = read_pdf(uploaded_file)
-                # summerize_text(text)
                 
             case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
                 text = read_docx(uploaded_file)
-                # summerize_text(text)
                 
         st.write(text)
+        
