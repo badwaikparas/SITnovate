@@ -13,3 +13,6 @@ def read_pdf(file):
     doc = fitz.open(stream=file.read(), filetype="pdf")  # Read from uploaded file
     text = "\n".join([page.get_text() for page in doc])  # Extract text from all pages
     return text
+
+
+
