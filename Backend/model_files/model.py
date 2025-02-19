@@ -1,8 +1,10 @@
+#!/usr/bin/env python3
 import os
 import glob
 from typing import List
 from multiprocessing import Pool
 from tqdm import tqdm
+import subprocess
 
 from langchain.document_loaders import (
     CSVLoader,
@@ -110,6 +112,7 @@ def process_documents(ignored_files: List[str] = []) -> List[Document]:
     """
     print(f"Loading documents from {source_directory}")
     documents = load_documents(source_directory, ignored_files)
+    print(f"{type(documents)} :: {type(documents[0]) if documents else 'Empty List'}")
     if not documents:
         print("No new documents to load")
         exit(0)
@@ -132,7 +135,7 @@ def does_vectorstore_exist(persist_directory: str) -> bool:
                 return True
     return False
 
-def run_conversation():
+def create_embeddings():
     # Create embeddings
     embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
 
@@ -154,7 +157,8 @@ def run_conversation():
     db = None
 
     print(f"Ingestion complete! You can now run privateGPT.py to query your documents")
+    subprocess.run(["python", "converse.py"])
 
 
 if __name__ == "__main__":
-    run_conversation()
+    create_embeddings()

@@ -1,5 +1,7 @@
 import os
-from chromadb.config import Settings
+from chromadb.config import Settings  # No change needed here
+# from pydantic_settings import BaseSettings  # Add this
+
 
 # Define the folder for storing database
 PERSIST_DIRECTORY = os.environ.get('PERSIST_DIRECTORY', 'db')
