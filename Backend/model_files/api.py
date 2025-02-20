@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 import shutil
 import subprocess
-from chat import converse
+from chat import main
 from flask import *
 from pydantic import BaseModel
 
@@ -50,8 +50,11 @@ async def process_json(request: Request):
         body = await request.body()  # Get raw bytes
         body_text = body.decode("utf-8")  # Convert bytes to string
         
+        subprocess.run(["python", "chat.py"])
+        response = main(body_text)
+        
 
-        return body_text
+        return response
 
     except Exception as e:
         return {"error": str(e)}
@@ -77,16 +80,6 @@ def create_embeddings():
 @app.put("/chat")
 def chat():
     subprocess.run(["python", "chat.py"])
-    
-# @app.get("/prompt")
-# async def prompt():
-#     # subprocess.run(["python", "chat.py"])
-#     # query = await request.body()
-#     # query = query.decode("utf-8").strip()
-#     # response = converse(query)
-    
-#     return "response"
-#     # converse(response)
     
 
 if __name__ == "__main__":
