@@ -15,7 +15,7 @@ from langchain.document_loaders import (
     UnstructuredEPubLoader,
     UnstructuredHTMLLoader,
     UnstructuredMarkdownLoader,
-    UnstructuredODTLoader,
+     UnstructuredODTLoader,
     UnstructuredPowerPointLoader,
     UnstructuredWordDocumentLoader,
 )
@@ -157,7 +157,7 @@ def create_embeddings():
     db = None
 
     print(f"Ingestion complete! You can now run privateGPT.py to query your documents")
-    subprocess.run(["python", "converse.py"])
+    # subprocess.run(["python", "converse.py"])
 
 
 if __name__ == "__main__":

@@ -69,13 +69,9 @@ async def upload_files(files: list[UploadFile] = File(...)):
             shutil.copyfileobj(file.file, buffer)
         saved_files.append(file.filename)
     
-    
-    return {"message": "Files uploaded successfully", "files": saved_files}
-
-@app.get("/submit")
-def create_embeddings():
     subprocess.run(["python", "model.py"])
-    return {"message" : "submitted"}
+    return {"message" : "embeddings created"}
+
 
 @app.put("/chat")
 def chat():
