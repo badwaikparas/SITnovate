@@ -72,5 +72,5 @@ def parse_arguments():
     return parser.parse_args()
 
 
-if __name__ == "__main__":
-    main("What is the Repeater")
+# if __name__ == "__main__":
+#     main("What is the Repeater")

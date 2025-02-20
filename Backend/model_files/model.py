@@ -160,5 +160,5 @@ def create_embeddings():
     # subprocess.run(["python", "converse.py"])
 
 
-if __name__ == "__main__":
-    create_embeddings()
+# if __name__ == "__main__":
+#     create_embeddings()
