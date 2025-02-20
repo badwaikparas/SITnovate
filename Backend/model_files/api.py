@@ -38,6 +38,10 @@ async def process_json(request: QueryModel):
 
     except Exception as e:
         return {"error": str(e)}
+    
+from fastapi import FastAPI, Request
+
+app = FastAPI()
 
 @app.get("/prompt")
 async def process_json(request: Request):
@@ -45,8 +49,9 @@ async def process_json(request: Request):
         # Read the request body
         body = await request.body()  # Get raw bytes
         body_text = body.decode("utf-8")  # Convert bytes to string
+        
 
-        return {"message": f"You said: {body_text}"}
+        return body_text
 
     except Exception as e:
         return {"error": str(e)}
