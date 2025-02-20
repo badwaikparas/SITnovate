@@ -3,6 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 import shutil
 import subprocess
+from chat import converse
+from flask import *
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -22,6 +25,32 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 @app.get("/")
 def read_root():
     return {"message": "Hello, World!"}
+
+class QueryModel(BaseModel):
+    query: str
+
+async def process_json(request: QueryModel):
+    try:
+        response = {
+            "message": f"You said: {request.query}"
+        }
+        return response
+
+    except Exception as e:
+        return {"error": str(e)}
+
+@app.get("/prompt")
+async def process_json(request: Request):
+    try:
+        # Read the request body
+        body = await request.body()  # Get raw bytes
+        body_text = body.decode("utf-8")  # Convert bytes to string
+
+        return {"message": f"You said: {body_text}"}
+
+    except Exception as e:
+        return {"error": str(e)}
+
 
 @app.post("/upload")
 async def upload_files(files: list[UploadFile] = File(...)):
@@ -43,6 +72,17 @@ def create_embeddings():
 @app.put("/chat")
 def chat():
     subprocess.run(["python", "chat.py"])
+    
+# @app.get("/prompt")
+# async def prompt():
+#     # subprocess.run(["python", "chat.py"])
+#     # query = await request.body()
+#     # query = query.decode("utf-8").strip()
+#     # response = converse(query)
+    
+#     return "response"
+#     # converse(response)
+    
 
 if __name__ == "__main__":
     import uvicorn
